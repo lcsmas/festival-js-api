@@ -8,16 +8,20 @@ app.set('port', port);
 
 app.use(cors()); //Active le Cross-Origin-Request
 
-const connectionInfo = {
-  host: 'localhost',
-  database : 'festival',
-  port: 5432,
-  ssl : true,
-  user: 'postgres',
-  password: 'festival943413',
-}
+// const connectionInfo = {
+//   host: 'localhost',
+//   database : 'festival',
+//   port: 5432,
+//   ssl : true,
+//   user: 'postgres',
+//   password: 'festival943413',
+// }
 const { Client } = require('pg')
 
+const client = new Client({
+  connectionString: process.env.DATABASE_URL,
+  ssl: true,
+});
 
 app.listen(port, function() {
   console.log('[festivaljs-api] écoute sur le port ', app.get('port'));

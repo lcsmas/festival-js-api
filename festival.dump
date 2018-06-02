@@ -1,0 +1,436 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 9.5.12
+-- Dumped by pg_dump version 9.5.12
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: Artiste; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public."Artiste" (
+    id integer NOT NULL,
+    nom character varying(255) NOT NULL,
+    image character varying(255) NOT NULL,
+    "idGenreMusical" integer NOT NULL,
+    description text
+);
+
+
+--
+-- Name: ArtisteFestival; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public."ArtisteFestival" (
+    "idArtiste" integer NOT NULL,
+    "idFestival" integer NOT NULL
+);
+
+
+--
+-- Name: Artiste_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public."Artiste_id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: Artiste_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public."Artiste_id_seq" OWNED BY public."Artiste".id;
+
+
+--
+-- Name: Festival; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public."Festival" (
+    id integer NOT NULL,
+    nom character varying(255) NOT NULL,
+    "dateDebut" date NOT NULL,
+    "dateFin" date NOT NULL,
+    image character varying(255) NOT NULL,
+    "idVille" integer NOT NULL,
+    "nbFestivaliers" integer
+);
+
+
+--
+-- Name: Festival_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public."Festival_id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: Festival_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public."Festival_id_seq" OWNED BY public."Festival".id;
+
+
+--
+-- Name: GenreMusical; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public."GenreMusical" (
+    id integer NOT NULL,
+    nom character varying(255) NOT NULL
+);
+
+
+--
+-- Name: GenreMusical_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public."GenreMusical_id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: GenreMusical_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public."GenreMusical_id_seq" OWNED BY public."GenreMusical".id;
+
+
+--
+-- Name: Pays; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public."Pays" (
+    id integer NOT NULL,
+    nom character varying(255) NOT NULL
+);
+
+
+--
+-- Name: Pays_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public."Pays_id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: Pays_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public."Pays_id_seq" OWNED BY public."Pays".id;
+
+
+--
+-- Name: Ville; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public."Ville" (
+    id integer NOT NULL,
+    nom character varying(255) NOT NULL,
+    "idPays" integer NOT NULL
+);
+
+
+--
+-- Name: Ville_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public."Ville_id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: Ville_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public."Ville_id_seq" OWNED BY public."Ville".id;
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public."Artiste" ALTER COLUMN id SET DEFAULT nextval('public."Artiste_id_seq"'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public."Festival" ALTER COLUMN id SET DEFAULT nextval('public."Festival_id_seq"'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public."GenreMusical" ALTER COLUMN id SET DEFAULT nextval('public."GenreMusical_id_seq"'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public."Pays" ALTER COLUMN id SET DEFAULT nextval('public."Pays_id_seq"'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public."Ville" ALTER COLUMN id SET DEFAULT nextval('public."Ville_id_seq"'::regclass);
+
+
+--
+-- Data for Name: Artiste; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public."Artiste" (id, nom, image, "idGenreMusical", description) FROM stdin;
+1	Indochine	indochine.jpg	1	\N
+2	DJ Snake	dj_snake.jpg	3	\N
+3	Macklemore	macklemore.jpg	2	\N
+4	Marilyn Manson	marilyn_manson.jpg	4	\N
+5	L'entourloop	entourloop.jpg	2	\N
+6	General Elektriks	general_elektriks.jpg	3	\N
+7	Gorillaz	gorillaz.jpg	5	Qu’est-ce qui a quatre têtes, un Grammy, un record du monde inscrit au Guiness Book et le numéro de téléphone de Madonna ? Gorillaz bien sûr ! Le groupe virtuel, projet du prolifique Damon Albarn et du graphiste Jamie Hewlett, repousse une nouvelle fois les limites avec Humanz, un melting pot foisonnant de hip-hop, RnB, pop, reggaeton, soul et rock comme seul le groupe britannique sait le faire.
+8	Lorenzo	lorenzo.jpg	2	Lorenzo, rappeur originaire du 3-5 (Ille-et-Vilaine, mamène !), fait partie de ces raz-de-marée qui cassent Internet en quelques heures. Planqué sous son bob, ses lunettes et ses moustaches, le politiquement incorrect en étendard, l’Empereur du Sale multiplie les punchlines insolentes, assumant une attitude white trash portée par une verve littéraire et ordurière qui ne laissera pas le public de Kerampuilh indifférent !
+\.
+
+
+--
+-- Data for Name: ArtisteFestival; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public."ArtisteFestival" ("idArtiste", "idFestival") FROM stdin;
+1	1
+2	1
+3	1
+4	1
+5	3
+6	3
+7	2
+8	2
+\.
+
+
+--
+-- Name: Artiste_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public."Artiste_id_seq"', 1, false);
+
+
+--
+-- Data for Name: Festival; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public."Festival" (id, nom, "dateDebut", "dateFin", image, "idVille", "nbFestivaliers") FROM stdin;
+1	Garorock	2018-06-28	2018-07-01	garorock.jpg	1	\N
+2	Les vieilles charrues	2018-07-19	2018-07-22	vieilles_charrues.jpg	2	\N
+3	La meuh folle	2018-06-04	2018-07-04	meuh_folle.jpg	3	\N
+\.
+
+
+--
+-- Name: Festival_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public."Festival_id_seq"', 1, false);
+
+
+--
+-- Data for Name: GenreMusical; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public."GenreMusical" (id, nom) FROM stdin;
+1	Rock
+2	Rap
+3	Electro
+4	Hard Rock
+5	Rock Alternatif
+\.
+
+
+--
+-- Name: GenreMusical_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public."GenreMusical_id_seq"', 1, false);
+
+
+--
+-- Data for Name: Pays; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public."Pays" (id, nom) FROM stdin;
+1	France
+\.
+
+
+--
+-- Name: Pays_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public."Pays_id_seq"', 1, false);
+
+
+--
+-- Data for Name: Ville; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public."Ville" (id, nom, "idPays") FROM stdin;
+1	Marmande	1
+2	Carhaix	1
+3	Alès	1
+\.
+
+
+--
+-- Name: Ville_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public."Ville_id_seq"', 1, false);
+
+
+--
+-- Name: artiste_pk; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public."Artiste"
+    ADD CONSTRAINT artiste_pk PRIMARY KEY (id);
+
+
+--
+-- Name: artistefestival_pk; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public."ArtisteFestival"
+    ADD CONSTRAINT artistefestival_pk PRIMARY KEY ("idArtiste", "idFestival");
+
+
+--
+-- Name: festival_pk; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public."Festival"
+    ADD CONSTRAINT festival_pk PRIMARY KEY (id);
+
+
+--
+-- Name: genremusical_pk; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public."GenreMusical"
+    ADD CONSTRAINT genremusical_pk PRIMARY KEY (id);
+
+
+--
+-- Name: pays_pk; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public."Pays"
+    ADD CONSTRAINT pays_pk PRIMARY KEY (id);
+
+
+--
+-- Name: ville_pk; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public."Ville"
+    ADD CONSTRAINT ville_pk PRIMARY KEY (id);
+
+
+--
+-- Name: ArtisteFestival_fk0; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public."ArtisteFestival"
+    ADD CONSTRAINT "ArtisteFestival_fk0" FOREIGN KEY ("idArtiste") REFERENCES public."Artiste"(id);
+
+
+--
+-- Name: ArtisteFestival_fk1; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public."ArtisteFestival"
+    ADD CONSTRAINT "ArtisteFestival_fk1" FOREIGN KEY ("idFestival") REFERENCES public."Festival"(id);
+
+
+--
+-- Name: Artiste_fk0; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public."Artiste"
+    ADD CONSTRAINT "Artiste_fk0" FOREIGN KEY ("idGenreMusical") REFERENCES public."GenreMusical"(id);
+
+
+--
+-- Name: Festival_fk0; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public."Festival"
+    ADD CONSTRAINT "Festival_fk0" FOREIGN KEY ("idVille") REFERENCES public."Ville"(id);
+
+
+--
+-- Name: Ville_fk0; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public."Ville"
+    ADD CONSTRAINT "Ville_fk0" FOREIGN KEY ("idPays") REFERENCES public."Pays"(id);
+
+
+--
+-- PostgreSQL database dump complete
+--
+
