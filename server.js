@@ -93,30 +93,31 @@ app.patch("/api/v1/festivals/:id", cors(), async (req, res) => {
 		  console.error('connection error', err.stack)
 		  res.sendStatus(500);
 		} else {
-		  console.log(`POST ${req.path}, body : ${JSON.stringify(req.body)}`)
+		  console.log(`PATCH ${req.path}, body : ${JSON.stringify(req.body)}`)
 		}
 	});	  
 	const attributes = req.body.data.attributes;
-	// const query = {
- //  			text: 'INSERT INTO "Festival" (nom, "dateDebut", "dateFin", image, "nbFestivaliers")' +
-	// 				'VALUES($1, $2, $3, $4, $5) RETURNING id;',
- //  			values: [attributes.nom, attributes.dateDebut, attributes.dateFin, attributes.image, attributes.nbFestivaliers]
-	// 	};
-	// await client.query(query, async (err, resp) => {
-	// 	await client.end( (err) => {
-	// 		if(err){
-	// 			console.log(err.stack);
-	// 			res.sendStatus(500);
-	// 		}
-	// 	});
-	// 	if(err){
-	// 		console.log("query err : " + err.stack);
-	// 		res.sendStatus(500);
-	// 	} else {
-	// 		res.status(201).json(to_jsonapi(resp.rows[0], "festival"));
-	// 	}
-	// });
-	res.send('nsm');
+	const query = {
+  			text: 	'UPDATE "Festival" ' + 
+  					'SET nom = $2, "dateDebut" = $3, "dateFin" = $4, image = $5, nbFestivaliers = $6 ' +
+					'WHERE id = $1',
+  			values: [attributes.id, attributes.nom, attributes.dateDebut, attributes.dateFin, attributes.image, attributes.nbFestivaliers]
+		};
+	await client.query(query, async (err, resp) => {
+		await client.end( (err) => {
+			if(err){
+				console.log(err.stack);
+				res.sendStatus(500);
+			}
+		});
+		if(err){
+			console.log("query err : " + err.stack);
+			res.sendStatus(500);
+		} else {
+			res.sendStatus(204);
+		}
+	});
+
 })	
 
 app.get("/api/v1/festivals", async (req, res) => {
