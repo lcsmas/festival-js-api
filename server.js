@@ -22,7 +22,7 @@ app.listen(port, function() {
 });
 
 
-app.post("/api/v1/festivals", cors(), (req, res) => {
+app.post("/api/v1/festivals", cors(), async (req, res) => {
 	const client = new Client(connectionInfo);
 	client.connect((err) => {
 		if (err) {
@@ -39,7 +39,7 @@ app.post("/api/v1/festivals", cors(), (req, res) => {
   			values: [attributes.nom, attributes.dateDebut, attributes.dateFin, attributes.image, attributes.nbFestivaliers]
 		};
 	await client.query(query, async (err, resp) => {
-		await client.end( async (err) => {
+		await client.end( (err) => {
 			if(err){
 				console.log(err.stack);
 				res.sendStatus(500);
