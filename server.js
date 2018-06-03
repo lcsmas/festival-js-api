@@ -86,6 +86,39 @@ app.post("/api/v1/festivals", cors(), async (req, res) => {
 	
 })	
 
+app.patch("/api/v1/festivals", cors(), async (req, res) => {
+	const client = new Client(connectionInfo);
+	client.connect((err) => {
+		if (err) {
+		  console.error('connection error', err.stack)
+		  res.sendStatus(500);
+		} else {
+		  console.log(`POST ${req.path}, body : ${JSON.stringify(req.body)}`)
+		}
+	});	  
+	const attributes = req.body.data.attributes;
+	// const query = {
+ //  			text: 'INSERT INTO "Festival" (nom, "dateDebut", "dateFin", image, "nbFestivaliers")' +
+	// 				'VALUES($1, $2, $3, $4, $5) RETURNING id;',
+ //  			values: [attributes.nom, attributes.dateDebut, attributes.dateFin, attributes.image, attributes.nbFestivaliers]
+	// 	};
+	// await client.query(query, async (err, resp) => {
+	// 	await client.end( (err) => {
+	// 		if(err){
+	// 			console.log(err.stack);
+	// 			res.sendStatus(500);
+	// 		}
+	// 	});
+	// 	if(err){
+	// 		console.log("query err : " + err.stack);
+	// 		res.sendStatus(500);
+	// 	} else {
+	// 		res.status(201).json(to_jsonapi(resp.rows[0], "festival"));
+	// 	}
+	// });
+	res.send('nsm');
+})	
+
 app.get("/api/v1/festivals", async (req, res) => {
 	const client = new Client(connectionInfo);
 
