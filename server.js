@@ -99,7 +99,7 @@ app.patch("/api/v1/festivals/:id", cors(), async (req, res) => {
 	const attributes = req.body.data.attributes;
 	const query = {
   			text: 	'UPDATE "Festival" ' + 
-  					'SET nom = $2, "dateDebut" = $3, "dateFin" = $4, image = $5, nbFestivaliers = $6 ' +
+  					'SET nom = $2, "dateDebut" = $3, "dateFin" = $4, image = $5, "nbFestivaliers" = $6 ' +
 					'WHERE id = $1',
   			values: [attributes.id, attributes.nom, attributes.dateDebut, attributes.dateFin, attributes.image, attributes.nbFestivaliers]
 		};
