@@ -26,9 +26,10 @@ app.post("/api/v1/festivals", cors(), (req, res) => {
 		if (err) {
 		  console.error('connection error', err.stack)
 		} else {
-		  console.log(`GET ${req.path}, params : ${req.params}`)
+		  console.log(`POST ${req.path}, params : ${req.params}`)
 		}
 	});	  
+	res.json('lel');
 })	
 
 app.get("/api/v1/festivals", async (req, res) => {
