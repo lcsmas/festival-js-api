@@ -5,7 +5,7 @@ var express = require('express'),
   bodyParser = require('body-parser');
 
 app.use(cors());
-app.use(bodyParser.json()); // for parsing application/json, on peut désormais accéder au req.body
+app.use(bodyParser.json({type : "application/vnd.api+json"})); // On peut désormais accéder au req.body pour les POST
 
 app.set('port', port);
 
