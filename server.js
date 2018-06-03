@@ -3,7 +3,13 @@ var express = require('express'),
   app = express(),
   port = process.env.PORT,
   bodyParser = require('body-parser');
-app.use(cors());
+
+var corsOptions = {
+  origin: true,
+  optionsSuccessStatus: 200 
+}
+
+app.use(cors(corsOptions));
 app.set('port', port);
 
  //Active le Cross-Origin-Request
