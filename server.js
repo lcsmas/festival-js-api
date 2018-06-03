@@ -1,12 +1,12 @@
 var express = require('express'),
-  app = express(),
-  port = process.env.PORT || 3000,
   cors = require('cors'),
+  app = express(),
+  port = process.env.PORT,
   bodyParser = require('body-parser');
-
+app.use(cors());
 app.set('port', port);
 
-app.use(cors()); //Active le Cross-Origin-Request
+ //Active le Cross-Origin-Request
 
 // const connectionInfo = {
 //   host: 'localhost',
