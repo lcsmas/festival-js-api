@@ -28,7 +28,7 @@ app.post("/api/v1/festivals", cors(), (req, res) => {
 		if (err) {
 		  console.error('connection error', err.stack)
 		} else {
-		  console.log(`POST ${req.path}, body : ${JSON.stringify(req.params)}`)
+		  console.log(`POST ${req.path}, body : ${JSON.stringify(req.query)}`)
 		}
 	});	  
 	res.json('lel');
