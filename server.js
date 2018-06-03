@@ -5,8 +5,7 @@ var express = require('express'),
   bodyParser = require('body-parser');
 
 app.use(cors());
-app.use(bodyParser.json()); // for parsing application/json, on peut désormais accéder au req.body
-app.use(bodyParser.urlencoded({ extended: true }));
+await app.use(bodyParser.json()); // for parsing application/json, on peut désormais accéder au req.body
 
 app.set('port', port);
 
@@ -28,7 +27,7 @@ app.post("/api/v1/festivals", cors(), (req, res) => {
 		if (err) {
 		  console.error('connection error', err.stack)
 		} else {
-		  console.log(`POST ${req.path}, body : ${JSON.stringify(req.query)}`)
+		  console.log(`POST ${req.path}, body : ${JSON.stringify(req.body)}`)
 		}
 	});	  
 	res.json('lel');
