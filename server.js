@@ -39,7 +39,7 @@ app.post("/api/v1/festivals", cors(), (req, res) => {
   			values: [attributes.nom, attributes.dateDebut, attributes.dateFin, attributes.image, attributes.nbFestivaliers]
 		};
 	await client.query(query, async (err, resp) => {
-		await client.end( (err) => {
+		await client.end( async (err) => {
 			if(err){
 				console.log(err.stack);
 				res.sendStatus(500);
