@@ -5,6 +5,7 @@ var express = require('express'),
   bodyParser = require('body-parser');
 
 app.use(cors());
+app.use(bodyParser.json()); // for parsing application/json, on peut désormais accéder au req.body
 
 app.set('port', port);
 
