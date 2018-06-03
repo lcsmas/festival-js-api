@@ -80,8 +80,7 @@ app.post("/api/v1/festivals", cors(), async (req, res) => {
 			console.log("query err : " + err.stack);
 			res.sendStatus(500);
 		} else {
-			res.send("ok");
-			//res.sendStatus(200);
+			res.json(req.body);
 		}
 	});
 	
