@@ -66,7 +66,7 @@ app.post("/api/v1/festivals", cors(), async (req, res) => {
 	const attributes = req.body.data.attributes;
 	const query = {
   			text: 'INSERT INTO "Festival" (nom, "dateDebut", "dateFin", image, "nbFestivaliers")' +
-					'VALUES($1, $2, $3, $4, $5);',
+					'VALUES($1, $2, $3, $4, $5) RETURNING *;',
   			values: [attributes.nom, attributes.dateDebut, attributes.dateFin, attributes.image, attributes.nbFestivaliers]
 		};
 	await client.query(query, async (err, resp) => {
@@ -80,6 +80,7 @@ app.post("/api/v1/festivals", cors(), async (req, res) => {
 			console.log("query err : " + err.stack);
 			res.sendStatus(500);
 		} else {
+			console.log(JSON.stringify(resp.rows));
 			res.json(req.body);
 		}
 	});
