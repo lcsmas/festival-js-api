@@ -22,6 +22,37 @@ app.listen(port, function() {
 });
 
 
+app.delete("api/v1/festivals/:id", async (req,res) => {
+	const client = new Client(connectionInfo);
+	client.connect((err) => {
+		if (err) {
+		  console.error('connection error', err.stack)
+		  res.sendStatus(500);
+		} else {
+		  console.log(`DELETE ${req.path}, params : ${JSON.stringify(req.params)}`)
+		}
+	});	  
+	const params = req.params;
+	const query = {
+  			text: 'DELETE FROM "Festival" WHERE id = $1;',
+  			values: [params.id]
+		};
+	await client.query(query, async (err, resp) => {
+		await client.end( (err) => {
+			if(err){
+				console.log(err.stack);
+				res.sendStatus(500);
+			}
+		});
+		if(err){
+			console.log("query err : " + err.stack);
+			res.sendStatus(500);
+		} else {
+			res.sendStatus(200);
+		}
+	});
+});
+
 app.post("/api/v1/festivals", cors(), async (req, res) => {
 	const client = new Client(connectionInfo);
 	client.connect((err) => {
