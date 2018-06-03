@@ -27,11 +27,32 @@ app.post("/api/v1/festivals", cors(), (req, res) => {
 	client.connect((err) => {
 		if (err) {
 		  console.error('connection error', err.stack)
+		  res.sendStatus(500);
 		} else {
 		  console.log(`POST ${req.path}, body : ${JSON.stringify(req.body)}`)
 		}
 	});	  
-	res.json('lel');
+	const attributes = req.body.data.attributes;
+	const query = {
+  			text: 'INSERT INTO "Festival" (nom, "dateDebut", "dateFin", image, "nbFestivaliers")' +
+					'VALUES($1, $2, $3, $4, $5);',
+  			values: [attributes.nom, attributes.dateDebut, attributes.dateFin, attributes.image, attributes.nbFestivaliers]
+		}
+	await client.query(query, async (err, resp) => {
+		await client.end( (err) => {
+			if(err){
+				console.log(err.stack);
+				res.sendStatus(500);
+			}
+		});
+		if(err){
+			console.log("query err : " + err.stack);
+			res.sendStatus(500);
+		} else {
+			res.sendStatus(200);
+		}
+	});
+	
 })	
 
 app.get("/api/v1/festivals", async (req, res) => {
@@ -39,7 +60,8 @@ app.get("/api/v1/festivals", async (req, res) => {
 
 	client.connect((err) => {
 		if (err) {
-		  console.error('connection error', err.stack)
+		  console.error('connection error', err.stack);
+		  res.sendStatus(500);
 		} else {
 		  console.log(`GET ${req.path}, params : ${req.params[0]}`)
 		}
@@ -49,10 +71,12 @@ app.get("/api/v1/festivals", async (req, res) => {
 		await client.end( (err) => {
 			if(err){
 				console.log(err.stack);
+				res.sendStatus(500);
 			}
 		});
 		if(err){
 			console.log("query err : " + err.stack);
+			res.sendStatus(500);
 		} else {
 			res.json(to_jsonapi(resp.rows, "festival"));
 		}
@@ -64,7 +88,8 @@ app.get("/api/v1/artistes", async (req, res) => {
 
 	client.connect((err) => {
 		if (err) {
-		  console.error('connection error', err.stack)
+		  console.error('connection error', err.stack);
+		  res.sendStatus(500);
 		} else {
 		  console.log(`GET ${req.path}, params : ${req.params[0]}`)
 		}
@@ -74,10 +99,12 @@ app.get("/api/v1/artistes", async (req, res) => {
 		await client.end( (err) => {
 			if(err){
 				console.log(err.stack);
+				res.sendStatus(500);
 			}
 		});
 		if(err){
 			console.log("query err : " + err.stack);
+			res.sendStatus(500);
 		} else {
 			res.json(to_jsonapi(resp.rows, "artiste"));
 		}
@@ -89,7 +116,8 @@ app.get("/api/v1/villes", async (req, res) => {
 
 	client.connect((err) => {
 		if (err) {
-		  console.error('connection error', err.stack)
+		  console.error('connection error', err.stack);
+		  res.sendStatus(500);
 		} else {
 		  console.log(`GET ${req.path}, params : ${req.params[0]}`)
 		}
@@ -99,10 +127,12 @@ app.get("/api/v1/villes", async (req, res) => {
 		await client.end( (err) => {
 			if(err){
 				console.log(err.stack);
+				res.sendStatus(500);
 			}
 		});
 		if(err){
 			console.log("query err : " + err.stack);
+			res.sendStatus(500);
 		} else {
 			res.json(to_jsonapi(resp.rows, "ville"));
 		}
@@ -114,7 +144,8 @@ app.get("/api/v1/pays", async (req, res) => {
 
 	client.connect((err) => {
 		if (err) {
-		  console.error('connection error', err.stack)
+		  console.error('connection error', err.stack);
+		  res.sendStatus(500);
 		} else {
 		  console.log(`GET ${req.path}, params : ${req.params[0]}`)
 		}
@@ -124,10 +155,12 @@ app.get("/api/v1/pays", async (req, res) => {
 		await client.end( (err) => {
 			if(err){
 				console.log(err.stack);
+				res.sendStatus(500);
 			}
 		});
 		if(err){
 			console.log("query err : " + err.stack);
+			res.sendStatus(500);
 		} else {
 			res.json(to_jsonapi(resp.rows, "pays"));
 		}
@@ -139,7 +172,8 @@ app.get("/api/v1/genres", async (req, res) => {
 
 	client.connect((err) => {
 		if (err) {
-		  console.error('connection error', err.stack)
+		  console.error('connection error', err.stack);
+		  res.sendStatus(500);
 		} else {
 		  console.log(`GET ${req.path}, params : ${req.params[0]}`)
 		}
@@ -149,10 +183,12 @@ app.get("/api/v1/genres", async (req, res) => {
 		await client.end( (err) => {
 			if(err){
 				console.log(err.stack);
+				res.sendStatus(500);
 			}
 		});
 		if(err){
 			console.log("query err : " + err.stack);
+			res.sendStatus(500);
 		} else {
 			res.json(to_jsonapi(resp.rows, "genre"));
 		}
@@ -177,7 +213,8 @@ app.get("/api/v1/festivals/:id", async (req, res) => {
 	
 	client.connect((err) => {
 		if (err) {
-		  console.error('connection error', err.stack)
+		  console.error('connection error', err.stack);
+		  res.sendStatus(500);
 		} else {
 		  console.log(`GET ${req.path}, params : ${req.query.include}`)
 		}
@@ -187,10 +224,12 @@ app.get("/api/v1/festivals/:id", async (req, res) => {
 		await client.end( (err) => {
 			if(err){
 				console.log(err.stack);
+				res.sendStatus(500);
 			}
 		});
 		if(err){
 			console.log("query err : " + err.stack);
+			res.sendStatus(500);
 		} else {
 			if(req.query.include){
 				resp.rows[0].relationships = {
@@ -217,7 +256,8 @@ app.get("/api/v1/artistes/:id", async (req, res) => {
 
 	client.connect((err) => {
 		if (err) {
-		  console.error('connection error', err.stack)
+		  console.error('connection error', err.stack);
+		  res.sendStatus(500);
 		} else {
 		  console.log(`GET ${req.path}, params : ${req.params[0]}`)
 		}
@@ -227,10 +267,12 @@ app.get("/api/v1/artistes/:id", async (req, res) => {
 		await client.end( (err) => {
 			if(err){
 				console.log(err.stack);
+				res.sendStatus(500);
 			}
 		});
 		if(err){
 			console.log("query err : " + err.stack);
+			res.sendStatus(500);
 		} else {
 			res.json(to_jsonapi(resp.rows[0], "artiste"));
 		}
@@ -246,7 +288,8 @@ app.get("/api/v1/villes/:id", async (req, res) => {
 
 	client.connect((err) => {
 		if (err) {
-		  console.error('connection error', err.stack)
+		  console.error('connection error', err.stack);
+		  res.sendStatus(500);
 		} else {
 		  console.log(`GET ${req.path}, params : ${req.params[0]}`)
 		}
@@ -256,10 +299,12 @@ app.get("/api/v1/villes/:id", async (req, res) => {
 		await client.end( (err) => {
 			if(err){
 				console.log(err.stack);
+				res.sendStatus(500);
 			}
 		});
 		if(err){
 			console.log("query err : " + err.stack);
+			res.sendStatus(500);
 		} else {
 			res.json(to_jsonapi(resp.rows[0], "artiste"));
 		}
