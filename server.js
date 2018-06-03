@@ -27,9 +27,6 @@ app.post("/api/v1/festivals", (req, res) => {
 		  console.error('connection error', err.stack)
 		} else {
 		  console.log(`GET ${req.path}, params : ${req.params}`)
-		  req.params.forEach((item)=>{
-		  	console.log(item);
-		  });
 		}
 	});	  
 })	
