@@ -22,8 +22,7 @@ app.listen(port, function() {
 });
 
 
-app.delete("api/v1/festivals/:id", cors(), async (req,res) => {
-	console.log('ttt');
+app.delete("/api/v1/festivals/:id", cors(), async (req,res) => {
 	const client = new Client(connectionInfo);
 	client.connect((err) => {
 		if (err) {
