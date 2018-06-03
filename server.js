@@ -4,12 +4,12 @@ var express = require('express'),
   port = process.env.PORT,
   bodyParser = require('body-parser');
 
-var corsOptions = {
-  origin: true,
-  optionsSuccessStatus: 200 
-}
+// var corsOptions = {
+//   origin: true,
+//   optionsSuccessStatus: 200 
+// }
 
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
