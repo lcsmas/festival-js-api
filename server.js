@@ -31,10 +31,10 @@ app.set('port', port);
 // }
 const { Client } = require('pg')
 
-const client = new Client({
+const connectionInfo ={
   connectionString: process.env.DATABASE_URL,
   ssl: true,
-});
+};
 
 app.listen(port, function() {
   console.log('[festivaljs-api] écoute sur le port ', app.get('port'));
