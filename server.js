@@ -86,7 +86,7 @@ app.post("/api/v1/festivals", cors(), async (req, res) => {
 	
 })	
 
-app.patch("/api/v1/festivals", cors(), async (req, res) => {
+app.patch("/api/v1/festivals/:id", cors(), async (req, res) => {
 	const client = new Client(connectionInfo);
 	client.connect((err) => {
 		if (err) {
