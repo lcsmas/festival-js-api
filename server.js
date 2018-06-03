@@ -5,7 +5,7 @@ var express = require('express'),
   bodyParser = require('body-parser');
 
 app.use(cors());
-await app.use(async bodyParser.json()); // for parsing application/json, on peut désormais accéder au req.body
+app.use(bodyParser.json()); // for parsing application/json, on peut désormais accéder au req.body
 
 app.set('port', port);
 
@@ -21,7 +21,7 @@ app.listen(port, function() {
 });
 
 
-app.post("/api/v1/festivals", cors(), (req, res) => {
+app.post("/api/v1/festivals", cors(), bodyParser.json(), (req, res) => {
 	const client = new Client(connectionInfo);
 	client.connect((err) => {
 		if (err) {
