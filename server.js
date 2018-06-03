@@ -4,31 +4,10 @@ var express = require('express'),
   port = process.env.PORT,
   bodyParser = require('body-parser');
 
-// var corsOptions = {
-//   origin: true,
-//   optionsSuccessStatus: 200 
-// }
-
 app.use(cors());
-
-// app.use(function(req, res, next) {
-//   res.header("Access-Control-Allow-Origin", "*");
-//   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-//   next();
-// });
 
 app.set('port', port);
 
- //Active le Cross-Origin-Request
-
-// const connectionInfo = {
-//   host: 'localhost',
-//   database : 'festival',
-//   port: 5432,
-//   ssl : true,
-//   user: 'postgres',
-//   password: 'festival943413',
-// }
 const { Client } = require('pg')
 
 const connectionInfo ={
@@ -40,17 +19,20 @@ app.listen(port, function() {
   console.log('[festivaljs-api] écoute sur le port ', app.get('port'));
 });
 
-// app.get('/*', (req, res) => {
-// 	const client = new Client(connectionInfo);
 
-// 	client.connect((err) => {
-// 		if (err) {
-// 		  console.error('connection error', err.stack)
-// 		} else {
-// 		  console.log(req.path);
-// 		}
-// 	});	  	
-// })
+app.post("/api/v1/festivals", (req, res) => {
+	const client = new Client(connectionInfo);
+	client.connect((err) => {
+		if (err) {
+		  console.error('connection error', err.stack)
+		} else {
+		  console.log(`GET ${req.path}, params : ${req.params}`)
+		  req.params.forEach((item)=>{
+		  	console.log(item);
+		  });
+		}
+	});	  
+})	
 
 app.get("/api/v1/festivals", async (req, res) => {
 	const client = new Client(connectionInfo);
