@@ -48,7 +48,7 @@ app.delete("/api/v1/festivals/:id", cors(), async (req,res) => {
 			console.log("query err : " + err.stack);
 			res.sendStatus(500);
 		} else {
-			res.status(200).json("OK");
+			res.sendStatus(204);
 		}
 	});
 });
