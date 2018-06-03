@@ -100,7 +100,7 @@ app.patch("/api/v1/festivals/:id", cors(), async (req, res) => {
 	const query = {
   			text: 	'UPDATE "Festival" ' + 
   					'SET nom = $2, "dateDebut" = $3, "dateFin" = $4, image = $5, "nbFestivaliers" = $6 ' +
-					'WHERE id = $1',
+					'WHERE id = $1 RETURNING *',
   			values: [attributes.id, attributes.nom, attributes.dateDebut, attributes.dateFin, attributes.image, attributes.nbFestivaliers]
 		};
 	await client.query(query, async (err, resp) => {
@@ -114,6 +114,7 @@ app.patch("/api/v1/festivals/:id", cors(), async (req, res) => {
 			console.log("query err : " + err.stack);
 			res.sendStatus(500);
 		} else {
+			console.log(JSON.stringify(rows));
 			res.sendStatus(204);
 		}
 	});
