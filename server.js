@@ -20,7 +20,7 @@ app.listen(port, function() {
 });
 
 
-app.post("/api/v1/festivals", (req, res) => {
+app.post("/api/v1/festivals", cors(), (req, res) => {
 	const client = new Client(connectionInfo);
 	client.connect((err) => {
 		if (err) {
