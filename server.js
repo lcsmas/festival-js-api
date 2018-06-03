@@ -9,12 +9,10 @@ var express = require('express'),
 //   optionsSuccessStatus: 200 
 // }
 
-app.use(cors());
-
-// app.use( (res,req) => {
-// 	let log = req.path;
-// 	console.log(req.path);
-// });
+app.use(cors(), (res,req) => {
+	let log = req.path;
+	console.log(req.path);
+});
 
 // app.use(function(req, res, next) {
 //   res.header("Access-Control-Allow-Origin", "*");
