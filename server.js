@@ -114,7 +114,7 @@ app.patch("/api/v1/festivals/:id", cors(), async (req, res) => {
 			console.log("query err : " + err.stack);
 			res.sendStatus(500);
 		} else {
-			console.log(JSON.stringify(resp.rows));
+			console.log(resp.rows);
 			res.sendStatus(204);
 		}
 	});
