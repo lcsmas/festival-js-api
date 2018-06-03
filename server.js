@@ -101,7 +101,7 @@ app.patch("/api/v1/festivals/:id", cors(), async (req, res) => {
   			text: 	'UPDATE "Festival" ' + 
   					'SET nom = $1, "dateDebut" = $2, "dateFin" = $3, image = $4, "nbFestivaliers" = $5 ' +
 					'WHERE id = $6 RETURNING *',
-  			values: [attributes.id, attributes.nom, attributes.dateDebut, attributes.dateFin, attributes.image, attributes.nbFestivaliers]
+  			values: [attributes.nom, attributes.dateDebut, attributes.dateFin, attributes.image, attributes.nbFestivaliers, req.body.data.id]
 		};
 	await client.query(query, async (err, resp) => {
 		await client.end( (err) => {
