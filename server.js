@@ -37,7 +37,7 @@ app.post("/api/v1/festivals", cors(), (req, res) => {
   			text: 'INSERT INTO "Festival" (nom, "dateDebut", "dateFin", image, "nbFestivaliers")' +
 					'VALUES($1, $2, $3, $4, $5);',
   			values: [attributes.nom, attributes.dateDebut, attributes.dateFin, attributes.image, attributes.nbFestivaliers]
-		}
+		};
 	await client.query(query, async (err, resp) => {
 		await client.end( (err) => {
 			if(err){
