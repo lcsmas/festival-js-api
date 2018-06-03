@@ -22,7 +22,7 @@ app.listen(port, function() {
 });
 
 
-app.delete("api/v1/festivals/:id", async (req,res) => {
+app.delete("api/v1/festivals/:id", cors(), async (req,res) => {
 	const client = new Client(connectionInfo);
 	client.connect((err) => {
 		if (err) {
